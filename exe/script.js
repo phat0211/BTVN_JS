@@ -53,43 +53,117 @@
 
 
 
-const students = [
-  { id: 1, name: 'An', age: 16, gender: 'Nam', scores: [7, 8, 9] },
-  { id: 2, name: 'Bình', age: 17, gender: 'Nam', scores: [6, 6, 5] },
-  { id: 3, name: 'Cúc', age: 16, gender: 'Nữ', scores: [9, 9, 10] },
-  { id: 4, name: 'Dương', age: 18, gender: 'Nữ', scores: [4, 5, 6] },
-  { id: 5, name: 'E', age: 15, gender: 'Nam', scores: [10, 10, 10] }
-];
+// const students = [
+//   { id: 1, name: 'An', age: 16, gender: 'Nam', scores: [7, 8, 9] },
+//   { id: 2, name: 'Bình', age: 17, gender: 'Nam', scores: [6, 6, 5] },
+//   { id: 3, name: 'Cúc', age: 16, gender: 'Nữ', scores: [9, 9, 10] },
+//   { id: 4, name: 'Dương', age: 18, gender: 'Nữ', scores: [4, 5, 6] },
+//   { id: 5, name: 'E', age: 15, gender: 'Nam', scores: [10, 10, 10] }
+// ]
 
-// 1. In ra tên và tuổi của từng học sinh
-console.log('Tên và tuổi của từng học sinh:');
-students.forEach(s => {
-  console.log(`Tên: ${s.name}, Tuổi: ${s.age}`);
+// console.log('Tên và tuổi của từng học sinh:');
+// students.forEach(s => {
+//   console.log(`Tên: ${s.name}, Tuổi: ${s.age}`);
+// });
+
+
+// const studentsWithAvg = students.map(s => ({
+//   name: s.name,
+//   avgScore: s.scores.reduce((a, b) => a + b, 0) / s.scores.length
+// }));
+// console.log('Tên và điểm trung bình:', studentsWithAvg);
+
+
+// const goodStudents = studentsWithAvg.filter(s => s.avgScore >= 8);
+// console.log('Học sinh có điểm trung bình >= 8:', goodStudents);
+
+
+// const firstOlder17 = students.find(s => s.age >= 17);
+// console.log('Học sinh đầu tiên có tuổi >= 17:', firstOlder17);
+
+
+// const hasLowAvg = studentsWithAvg.some(s => s.avgScore < 5);
+// console.log('Có học sinh nào điểm trung bình dưới 5 không?', hasLowAvg);
+
+
+// const allAbove15 = students.every(s => s.age >= 15);
+// console.log('Tất cả học sinh có tuổi >= 15 không?', allAbove15);
+
+
+// const classAvg = studentsWithAvg.reduce((sum, s) => sum + s.avgScore, 0) / studentsWithAvg.length;
+// console.log('Điểm trung bình toàn lớp:', classAvg); 
+
+
+document.addEventListener('DOMContentLoaded', function() {
+  const list = document.getElementById('todo-list');
+  if (list) {
+    list.addEventListener('click', function(e) {
+      if (e.target.tagName === 'LI') {
+        e.target.classList.toggle('done');
+      }
+    });
+  }
 });
 
-// 2. Tạo mảng mới chứa tên học sinh kèm điểm trung bình của họ
-const studentsWithAvg = students.map(s => ({
-  name: s.name,
-  avgScore: s.scores.reduce((a, b) => a + b, 0) / s.scores.length
-}));
-console.log('Tên và điểm trung bình:', studentsWithAvg);
+$(function() {
+  // Lấy dữ liệu từ localStorage khi tải trang
+  let users = JSON.parse(localStorage.getItem('users')) || [];
 
-// 3. Lọc ra các học sinh có điểm trung bình >= 8
-const goodStudents = studentsWithAvg.filter(s => s.avgScore >= 8);
-console.log('Học sinh có điểm trung bình >= 8:', goodStudents);
+  function saveUsers() {
+    localStorage.setItem('users', JSON.stringify(users));
+  }
 
-// 4. Tìm học sinh đầu tiên có tuổi >= 17
-const firstOlder17 = students.find(s => s.age >= 17);
-console.log('Học sinh đầu tiên có tuổi >= 17:', firstOlder17);
+  function renderTable(data) {
+    const tbody = $('#user-table tbody');
+    tbody.empty();
+    if (data.length === 0) {
+      tbody.append('<tr><td colspan="4" style="text-align:center;">Không có dữ liệu</td></tr>');
+      return;
+    }
+    data.forEach((user, idx) => {
+      tbody.append(`
+        <tr data-idx="${idx}">
+          <td>${user.name}</td>
+          <td>${user.age}</td>
+          <td>${user.gender}</td>
+          <td><button class="delete-btn">Xoá</button></td>
+        </tr>
+      `);
+    });
+  }
 
-// 5. Kiểm tra có học sinh nào có điểm trung bình dưới 5 không
-const hasLowAvg = studentsWithAvg.some(s => s.avgScore < 5);
-console.log('Có học sinh nào điểm trung bình dưới 5 không?', hasLowAvg);
+  $('#user-form').on('submit', function(e) {
+    e.preventDefault();
+    const name = $('#name').val().trim();
+    const age = parseInt($('#age').val());
+    const gender = $('input[name="gender"]:checked').val();
+    if (!name || !age) return;
+    users.push({ name, age, gender });
+    saveUsers(); // Lưu vào localStorage
+    $('#user-form')[0].reset();
+    $('input[name="gender"][value="Nam"]').prop('checked', true);
+    applyFilter();
+  });
 
-// 6. Kiểm tra tất cả học sinh có tuổi >= 15 không
-const allAbove15 = students.every(s => s.age >= 15);
-console.log('Tất cả học sinh có tuổi >= 15 không?', allAbove15);
+  $('#user-table').on('click', '.delete-btn', function() {
+    const idx = $(this).closest('tr').data('idx');
+    users.splice(idx, 1);
+    saveUsers(); // Lưu vào localStorage
+    applyFilter();
+  });
 
-// 7. Tính điểm trung bình toàn bộ lớp
-const classAvg = studentsWithAvg.reduce((sum, s) => sum + s.avgScore, 0) / studentsWithAvg.length;
-console.log('Điểm trung bình toàn lớp:', classAvg); 
+  $('#filter-age').on('input', function() {
+    applyFilter();
+  });
+
+  function applyFilter() {
+    const maxAge = parseInt($('#filter-age').val());
+    let filtered = users;
+    if (!isNaN(maxAge)) {
+      filtered = users.filter(u => u.age <= maxAge);
+    }
+    renderTable(filtered);
+  }
+
+  renderTable(users);
+});
