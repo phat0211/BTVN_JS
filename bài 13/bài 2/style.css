@@ -1,0 +1,127 @@
+body {
+    font-family: Arial, sans-serif;
+    background: #f4f6fb;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+}
+
+h2 {
+    margin-top: 40px;
+    color: #2d3a4b;
+}
+
+form {
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+    align-items: center;
+}
+
+form input {
+    padding: 8px 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    outline: none;
+    transition: border 0.2s;
+}
+
+form input:focus {
+    border: 1.5px solid #4a90e2;
+}
+
+form button {
+    padding: 8px 16px;
+    border: none;
+    border-radius: 4px;
+    background: #4a90e2;
+    color: #fff;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+form button#cancel-edit {
+    background: #e94e77;
+}
+
+form button:hover {
+    background: #357ab8;
+}
+
+form button#cancel-edit:hover {
+    background: #c0392b;
+}
+
+ul#todo-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    max-width: 500px;
+}
+
+ul#todo-list li {
+    background: #fff;
+    margin-bottom: 10px;
+    padding: 14px 16px;
+    border-radius: 6px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    transition: box-shadow 0.2s;
+}
+
+ul#todo-list li.completed span {
+    text-decoration: line-through;
+    color: #aaa;
+    opacity: 0.7;
+}
+
+ul#todo-list li input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    accent-color: #4a90e2;
+    cursor: pointer;
+}
+
+ul#todo-list li button {
+    margin-left: auto;
+    margin-right: 4px;
+    padding: 6px 12px;
+    border: none;
+    border-radius: 4px;
+    background: #4a90e2;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s;
+    font-size: 15px;
+}
+
+ul#todo-list li button:last-child {
+    background: #e94e77;
+}
+
+ul#todo-list li button:hover {
+    background: #357ab8;
+}
+
+ul#todo-list li button:last-child:hover {
+    background: #c0392b;
+}
+
+ul#todo-list li span {
+    flex: 1;
+    font-size: 17px;
+    cursor: pointer;
+    user-select: none;
+} 
