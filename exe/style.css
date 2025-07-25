@@ -1,16 +1,11 @@
-.done {
-    text-decoration: line-through;
-    color: gray;
-  }
-#user-table {
-  border-collapse: collapse;
-  width: 100%;
-}
-#user-table th, #user-table td {
-  border: 1px solid #ccc;
-  padding: 8px;
-  text-align: left;
-}
-#user-table th {
-  background: #f0f0f0;
-}
+body { font-family: Arial, sans-serif; margin: 30px; }
+h1, h2 { color: #333; }
+form { margin-bottom: 20px; }
+form div { margin-bottom: 10px; }
+input[type="text"], input[type="number"], select, textarea { padding: 5px; width: 220px; }
+textarea { resize: vertical; }
+button { padding: 5px 12px; margin-right: 5px; }
+table { border-collapse: collapse; width: 100%; margin-top: 10px; }
+th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+th { background: #f5f5f5; }
+tr:nth-child(even) { background: #fafafa; }
