@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quản lý sản phẩm & danh mục</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        .tab-btns {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            margin-bottom: 28px;
+        }
+        .tab-btn {
+            padding: 8px 28px;
+            border: none;
+            border-radius: 6px 6px 0 0;
+            background: #e3eafc;
+            color: #1a237e;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background 0.2s, color 0.2s;
+        }
+        .tab-btn.active {
+            background: #1976d2;
+            color: #fff;
+        }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .box-form {
+            background: #f8fafc;
+            border: 1.5px solid #b6c2d1;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+            padding: 24px 18px 18px 18px;
+            margin-bottom: 24px;
+            max-width: 500px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .box-form h2 {
+            margin-top: 0;
+            color: #1a237e;
+            font-size: 1.25rem;
+            letter-spacing: 1px;
+        }
+        .box-form hr {
+            border: none;
+            border-top: 1px solid #b6c2d1;
+            margin: 18px 0 12px 0;
+        }
+        @media (max-width: 600px) {
+            .box-form { padding: 12px 4px; }
+        }
+    </style>
+</head>
+<body>
+    <h1 style="text-align:center; color:#0d47a1; margin-bottom:18px;">Quản lý sản phẩm & danh mục</h1>
+    <div class="tab-btns">
+        <button class="tab-btn active" id="tab-product">Sản phẩm</button>
+        <button class="tab-btn" id="tab-category">Danh mục</button>
+    </div>
+    <div class="box-form tab-content active" id="content-product">
+        <h2>Quản lý sản phẩm</h2>
+        <form id="product-form">
+            <input type="hidden" id="product-id">
+            <div>
+                <label for="product-name">Tên sản phẩm:</label>
+                <input type="text" id="product-name" maxlength="255" required>
+            </div>
+            <div>
+                <label for="product-price">Giá:</label>
+                <input type="number" id="product-price" min="0" required>
+            </div>
+            <div>
+                <label for="product-category">Danh mục:</label>
+                <select id="product-category" required></select>
+            </div>
+            <div>
+                <label for="product-description">Mô tả:</label>
+                <textarea id="product-description" maxlength="500" rows="2"></textarea>
+            </div>
+            <button type="submit">Thêm sản phẩm</button>
+            <button type="button" id="cancel-edit" style="display:none">Huỷ</button>
+        </form>
+        <hr>
+        <table id="product-table">
+            <thead>
+                <tr>
+                    <th>Tên</th>
+                    <th>Giá</th>
+                    <th>Danh mục</th>
+                    <th>Mô tả</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <div class="box-form tab-content" id="content-category">
+        <h2>Quản lý danh mục</h2>
+        <form id="category-form">
+            <input type="hidden" id="category-id">
+            <div>
+                <label for="category-name">Tên danh mục:</label>
+                <input type="text" id="category-name" maxlength="255" required>
+            </div>
+            <div>
+                <label for="category-quantity">Số lượng:</label>
+                <input type="number" id="category-quantity" min="0" required>
+            </div>
+            <button type="submit">Thêm danh mục</button>
+            <button type="button" id="cancel-edit" style="display:none">Huỷ</button>
+        </form>
+        <hr>
+        <table id="category-table">
+            <thead>
+                <tr>
+                    <th>Tên</th>
+                    <th>Số lượng</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html> 
